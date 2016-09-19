@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="actApp" xmlns:gs="http://www.gensee.com/ec">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="format-detection" content="telephone=no" />
+	<link href="../css/style-new.css" rel="stylesheet" type="text/css"/>
+	<title>家长会</title>
+	<script>
+		var html = document.getElementsByTagName('html')[0];
+		var winWid = window.innerWidth || document.body && document.body.clientWidth;
+		html.style.fontSize = Math.min(winWid, 640) / 640 * 100 + 'px';
+	</script>
+	<script type="text/javascript" src="http://static.gensee.com/webcast/static/sdk/js/gssdk.js"></script>
+</head>
+<body class="bg01">
+        <button onclick="sendAns()">发送提问</button>
+        <button onclick="sendChat()">发送聊天</button>
+		<div class="span6 videoDiv">
+			<!-- Video Widget -->
+			<gs:video-live id="videoComponent" compress="false" site="8dsun.gensee.com" ctx="webcast" ownerid="bb6a4f38e0b34605843667e0df882288" authcode="333333" compress="false"/>
+
+		</div>
+		<div class="">
+			<gs:doc id="docComponent"  site="8dsun.gensee.com" ownerid="bb6a4f38e0b34605843667e0df882288" />
+		</div>
+		<script type="text/javascript">
+			var channel
+			//setTimeout(function(){
+				//1. 根据组获得通讯通道
+				channel = GS.createChannel();
+				channel.bind("onPublicChat", function(event){
+					console.log(JSON.stringify(event.data));
+				});
+			//},0);
+			function sendAns(){
+				channel.send("submitQuestion", {
+					"content" : "what's your name?"
+				},function(e){
+					alert(JSON.stringify(e.data));
+				});
+			}
+			function sendChat(){
+				channel.send("submitChat", {
+					"content" : "what's your name1?"
+				},function(e){
+					//alert(JSON.stringify(e.data));
+				});
+			}
+		</script>
+</body>
+
+
+</html>

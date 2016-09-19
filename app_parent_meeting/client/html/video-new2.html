@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="actApp" xmlns:gs="http://www.gensee.com/ec">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="format-detection" content="telephone=no" />
+	<link href="../css/style-new.css" rel="stylesheet" type="text/css"/>
+	<title>家长会</title>
+	<script>
+		var html = document.getElementsByTagName('html')[0];
+		var winWid = window.innerWidth || document.body && document.body.clientWidth;
+		html.style.fontSize = Math.min(winWid, 640) / 640 * 100 + 'px';
+	</script>
+	<script type="text/javascript" src="http://static.gensee.com/webcast/static/sdk/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="http://static.gensee.com/webcast/static/sdk/js/gssdk.js"></script>
+	<script type="text/javascript" src="http://static.gensee.com/webcast/static/sdk/js/tester.js"></script>
+	<script>
+		function onCompleted(data){
+			console.log(12);
+			logEvent("SDK",{"msg":"[completed]type:"+data.type+",starttime:"+data.starttime},"orange");
+		}
+	</script>
+</head>
+<body class="bg01">
+        <button onclick="sendAns()">发送提问</button>
+        <button onclick="sendChat()">发送聊天</button>
+		<div class="span6 videoDiv">
+			<!-- Video Widget -->
+			<gs:video-live id="videoComponent" site="8dsun.gensee.com" ctx="webcast" ownerid="bb6a4f38e0b34605843667e0df882288" authcode="333333" compress="false"/>
+
+		</div>
+        <div class="">
+				<gs:doc id="docComponent"  site="8dsun.gensee.com" ownerid="bb6a4f38e0b34605843667e0df882288" />
+		</div>
+<div id="eventslog" style="font-size:12px;">
+
+</div>
+		<div id="eventsBoundDiv"  style="font-size:12px;">
+
+		</div>
+		<script>
+			var wg1 = GS.createChannel();
+			var evts = ["onVoteResult", "onVote", "onStop", "onPlay", "onPause", "onStart", "onUserOnline", "onUserLeave", "onUserJoin", "onUserList"
+				, "onLottery" , "onFile", "onTextWebcast", "onRollcall", "onKickOut", "onMessage", "onSetting", "onQAList", "onQARemove", "onVideoConfig"
+				, "onDocChange", "onUrlOpen", "onUpgradeRequired", "onModuleFocus", "onQA", "onUserUpdate", "onStatus", "onAPIError", "onSubmitUpgrade", "onPriChat"
+				, "onPublicChat", "onWebAudioInvite", "onWebAudioClose", "onNetSettings", "onTagAudio", "onQAHighlight", "onCancelHighlight", "onDataReady","onUserHost"
+				,"onUserAsker","onClassMode","onWebVoiceStatus","onMute","onVideoShow","onLiveDemandStart","onWebVoiceInvite","onWebVoiceMicList","onThirdPartChat"
+				,"onWebVoiceInfo","onAnswerSheet","onRoleStatus","onDownloadSpeed"];
+			for(var i=0;i<evts.length;i++){
+				wg1.bind(evts[i], handler);
+			}
+			function handler(event) {
+				if(event.target.id==wg1.id){
+					//
+				}else{
+					logEvent("WIDGET",event, '#66CC33');
+				}
+			}
+
+			function send() {
+				var type = document.getElementById("test_event_type_select").value;
+				var msg = document.getElementById("test_message_textarea").value;
+				try{
+					msg = eval("("+msg+")");
+				}catch(e){
+					alert("数据内容格式错误-"+e);
+					throw e;
+				}
+				var i = wg1.send(type, msg,function(e){logEvent("CHANNEL", {type:"rallback:"+type, data:e, target:{}}, 'red')});
+				appendSendedMsg({type:type, data:msg}, 'gray');
+				if(i==1){
+					for(var k in evts){
+						if(type==evts[k]){
+							logEvent("CHANNEL", {type:"CHANNEL", data:"No '"+type+"' handler had bound now!", target:{}}, 'blue');
+						}
+					}
+				}
+			}
+
+			function bind(){
+				var type = document.getElementById("new_event_type").value;
+				for(var i in evts){
+					var evt = evts[i];
+					if(evt==type){
+						alert("Type '"+type+"' is duplicated!");
+						return;
+					}
+				}
+				wg1.bind(type, handler);
+				evts.push(type);
+				showEventsBinded();
+			}
+
+			function showEventsBinded(){
+				var eventsBoundDiv = document.getElementById("eventsBoundDiv");
+				eventsBoundDiv.innerHTML = evts;
+			}
+			showEventsBinded();
+		</script>
+</body>
+
+
+</html>

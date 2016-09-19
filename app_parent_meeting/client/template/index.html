@@ -1,0 +1,61 @@
+
+<div class="pmeetting-list">
+    <ul class="clearfix">
+        <li  style="background-image:url({{item.poster || rcontextPath+'/images/change/poster01.png'}})" ng-repeat="item in meetingList track by $index" ng-click="attOrCheck(item)">
+            <div class="pm-mask"></div>
+            <div class="jq-cont box-sizing" >
+                 <h3 class="tc f30">{{item.meetingName}}</h3>
+                 <p class="jq-p01 f24 mb25 tc"></p>
+
+                <div class="jq-div01 f0 box-sizing">
+                    <span class="jq-span02 f24 ell">{{item.rangeName||'公开'}}</span>
+                    <span class="fl pm-span-l">
+                    <i class="pm-time-ic mr10 vm"></i><span class="f24 vm">{{item.startTime|date:'MM-dd HH:mm'}}&nbsp;&nbsp;&nbsp;<span ng-if="item.expectTime">{{item.expectTime}}</span></span>
+                    </span>
+                    <span class="fr">
+                        <span class="vm  pm-join-num"><i class="pm-people-ic ml10 vm"></i><span class="vm f24">{{item.joinNum|shortNum}}人</span></span>
+                         <span class="pm-state box-sizing dib vm" ng-class="{'fm-back':item.state==2,'fm-will':item.state==1}">
+                             {{item.state==1&&'即将开始'||item.state==2&&'回顾'||'直播中'}}</span>
+                    </span>
+
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="pm-nav" ng-if="jqmode!=1">
+    <ul class="pm-nav-list clearfix">
+        <li   ng-click="navSelect(1)" ng-class="{'current':currentIndex==1}">
+            <a ng-href="{{currentIndex==1&&''||'#/'}}" class="db tc">
+                <div class="jq-inner">
+                    <div class="jq-img-wrap">
+                        <img ng-src="{{rcontextPath}}/images/icon/live{{currentIndex==1&&'-current'||''}}.png"/>
+                        <span class="vm">正在直播</span>
+                    </div>
+                    <!--<p class="jq-text">正在直播</p>-->
+                </div>
+            </a>
+        </li>
+        <!--<li class="fm-hidden"  ng-click="navSelect(2)" ng-class="{'current':currentIndex==2}" >-->
+            <!--<a ng-href="" class="db tc">-->
+                <!--<div class="jq-inner">-->
+                    <!--<div class="jq-img-wrap vmhc">-->
+                        <!--<img ng-src="{{rcontextPath}}/images/icon/manage{{currentIndex==2&&'-current'||''}}.png" style="width:.44rem;"/>-->
+                    <!--</div>-->
+                    <!--<p class="jq-text">直播管理</p>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</li>-->
+        <li  ng-click="navSelect(3)" ng-class="{'current':currentIndex==3}">
+            <a ng-href="{{hostname}}/WebApp/appPersonCenter/#/{{'?fid='+fid+'&uid='+uid}}&fromPm=1" class="db tc">
+                <div class="jq-inner">
+                    <div class="jq-img-wrap">
+                        <img ng-src="{{rcontextPath}}/images/icon/person-center{{currentIndex==3&&'-current'||''}}.png" />
+                        <span class="vm">个人中心</span>
+                    </div>
+                    <!--<p class="jq-text">个人中心</p>-->
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
