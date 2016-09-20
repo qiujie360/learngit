@@ -27,7 +27,11 @@
         <entry file="file://$PROJECT_DIR$/app_parent_meeting/client/html/bind-err3.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
+<<<<<<< HEAD
               <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+=======
+              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+>>>>>>> feature1
               <folding />
             </state>
           </provider>
@@ -167,12 +171,20 @@
       <option name="presentableId" value="Default" />
       <updated>1474355439060</updated>
       <workItem from="1474355440578" duration="573000" />
+<<<<<<< HEAD
       <workItem from="1474356015035" duration="751000" />
+=======
+      <workItem from="1474356015035" duration="513000" />
+>>>>>>> feature1
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="1324000" />
+=======
+    <option name="totallyTimeSpent" value="1086000" />
+>>>>>>> feature1
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1370" height="735" extended-state="0" />
@@ -224,7 +236,11 @@
     <entry file="file://$PROJECT_DIR$/app_parent_meeting/client/html/bind-err3.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
+<<<<<<< HEAD
           <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+=======
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+>>>>>>> feature1
           <folding />
         </state>
       </provider>
